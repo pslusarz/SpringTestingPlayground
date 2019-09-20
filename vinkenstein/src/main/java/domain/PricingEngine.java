@@ -8,6 +8,8 @@ import java.util.List;
 
 public class PricingEngine {
 
+    @Autowired HistoryClient historyClient;
+
     public PricingEngine() {
 
     }
@@ -24,7 +26,7 @@ public class PricingEngine {
 
     private void populateHistoryData(List<AssessedVehicle> assessedVehicles) {
         for (AssessedVehicle assessedVehicle : assessedVehicles) {
-            Listing rawListingHistory = restTemplate.getForObject("http://"+remoteServerHostname+":8093/history?vin=" + assessedVehicle.getVin(), Listing.class);
+            Listing rawListingHistory = historyClient.getHistory(assessedVehicle.getVin());//restTemplate.getForObject("http://"+remoteServerHostname+":8093/history?vin=" + assessedVehicle.getVin(), Listing.class);
             assessedVehicle.setNumberOfOwners(rawListingHistory.getNumberOfOwners());
             assessedVehicle.setNumberOfAccidents(rawListingHistory.getNumberOfAccidents());
         }

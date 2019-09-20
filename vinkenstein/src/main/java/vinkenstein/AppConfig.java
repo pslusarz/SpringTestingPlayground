@@ -1,6 +1,7 @@
 package vinkenstein;
 
 import clients.ListingsClient;
+import domain.HistoryClient;
 import domain.PricingEngine;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class AppConfig {
     @Bean String remoteServerHostname() {
-       return "A-TD1EMGTFM"; //"localhost";
+       return "localhost"; // "A-TD1EMGTFM"; //"localhost";
     } ;
 
     @Bean
@@ -20,6 +21,11 @@ public class AppConfig {
     @Bean
     RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    HistoryClient historyClient(String remoteServerHostname) {
+        return new HistoryClient(remoteServerHostname);
     }
 
     @Bean
