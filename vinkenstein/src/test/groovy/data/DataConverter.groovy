@@ -9,13 +9,9 @@ class DataConverter {
         File output = new File("vinkenstein/src/test/resources/history.json")
         output.delete()
 
-        def listings = []//[:].withDefault { [] }
+        def listings = []
 
         file.eachLine {
-
-            //Random rand = new Random()
-
-            //if (size < 100) {
             String[] chunks = it.split("\\|")
             Listing listing = new Listing(vin: chunks[0],
                     make: chunks[1],
@@ -32,20 +28,6 @@ class DataConverter {
         }
 
         output << JsonOutput.toJson(listings)
-
-//println "def makes = ["
-//        makes.entrySet().each { makesEntry ->
-//           println "  '"+makesEntry.key+"': ["
-//            println "    '"+makesEntry.value[0]+"', ["
-//            println "        "+makesEntry.value[1].entrySet().collect { modelEntry ->
-//                return "'"+modelEntry.key+"': '"+modelEntry.value+"'"
-//            }.join(",")
-//            println "    ]"
-//            println "  ],"
-//
-//        }
-//println "]"
-        //println makes
         println "done, read ${listings.size()}"
     }
 
